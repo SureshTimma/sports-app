@@ -4,6 +4,8 @@ import sportsRouter from "./src/routes/sportsRoutes.js";
 
 const app = express();
 const port = 3000;
+
+app.use(express.json());
 await MongoConnect();
 
 app.use("/sports", sportsRouter);

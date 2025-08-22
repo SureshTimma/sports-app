@@ -8,5 +8,18 @@ const sportSchema = new schema({
     sportName: String
 });
 
-const sportsModel = model("Sport", sportSchema);
-export default sportsModel;
+const tourSchema = new schema({
+    tourName: String,
+    sportId: { type: objectId, ref: "Sport" }
+})
+
+const matchSchema = new schema({
+    matchName: String,
+    tourId: { type: objectId, ref: "Tour" }
+})
+
+const sportsModel = model("Sport", sportSchema) || mongoose.models.Sport;
+const toursModel = model("Tour", tourSchema) || mongoose.models.Tour;
+const matchesModel = model("Match", matchSchema) || mongoose.models.Match;
+
+export { sportsModel, toursModel, matchesModel };

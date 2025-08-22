@@ -5,8 +5,7 @@ const objectId = schema.ObjectId;
 const model = mongoose.model;
 
 const sportSchema = new schema({
-    _id: objectId,
-    name: String
+    sportName: String
 });
 
 const sportsModel = model("Sport", sportSchema);

@@ -12,10 +12,14 @@ sportsRouter.get("/", async (req, res) => {
 })
 
 sportsRouter.post("/", async (req,res)=>{
-    const data = await sportsModel.create({
-        name: "Suresh"
-    })
-    res.json(data)
+    try{
+        const body = req.body;
+        const data = await sportsModel.create(body);
+        res.status(201).json(data)
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
 })
 
 export default sportsRouter;

@@ -5,7 +5,7 @@ const objectId = schema.ObjectId;
 const model = mongoose.model;
 
 const sportSchema = new schema({
-    sportName: String
+    sportName: { type: String, required: true, unique: true }
 });
 
 const tourSchema = new schema({

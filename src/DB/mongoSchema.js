@@ -15,12 +15,14 @@ const tourSchema = new schema({
 
 const matchSchema = new schema({
     matchName: String,
-    tourId: { type: objectId, ref: "Tour" }
+    tourId: { type: objectId, ref: "Tour" },
+    startTime: { type: Date, default: Date.now },
+    format: { type: String, default: "Regular" }
 })
 
 const newsSchema = new schema({
-    newsTitle: String,
-    newsDescription: String,
+    title: String,
+    description: String,
     matchId: { type: objectId, ref: "Match" },
     tourId: { type: objectId, ref: "Tour" },
     sportId: { type: objectId, ref: "Sport" },
@@ -32,5 +34,12 @@ const sportsModel = model("Sport", sportSchema) || mongoose.models.Sport;
 const toursModel = model("Tour", tourSchema) || mongoose.models.Tour;
 const matchesModel = model("Match", matchSchema) || mongoose.models.Match;
 const newsModel = model("News", newsSchema) || mongoose.models.News;
+
+// Performance indexes
+tourSchema.index({ sportId: 1 });
+matchSchema.index({ tourId: 1 });
+newsSchema.index({ matchId: 1, tourId: 1, sportId: 1 });
+
+export { sportsModel, toursModel, matchesModel, newsModel };
 
 export { sportsModel, toursModel, matchesModel, newsModel };
